@@ -84,7 +84,30 @@ schema.generation.enabled=true
 ![Create New Connector](docs/MMD2.png)
 * Your new connector is now up and running
 
-#Test it#
+* It is possible to do the same with APIs:
+```
+curl -X POST \
+  http://localhost:8083/connectors/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{
+  "name": "MmdAccountSourceConnector",
+  "config": {
+    "connector.class": "com.sab2i.sabat.connect.account.MmdAccountSourceConnector",
+    "input.file.pattern": "^accounts.*.mmd$",
+    "finished.path": "/tmp/finished-account",
+    "timestamp.mode": "FILE_TIME",
+    "tasks.max": "1",
+    "topic": "sabat-accounts-poc",
+    "halt.on.error": "false",
+    "error.path": "/tmp/error-account",
+    "input.path": "/tmp/source-account",
+    "schema.generation.enabled": "true"
+  }
+}'
+```
+
+#Test it
 * Generate some test files
 ```
 for i in {0..10}; do echo "iban-$i|Name $i|Lastname $i"; done >> accounts1.mmd
