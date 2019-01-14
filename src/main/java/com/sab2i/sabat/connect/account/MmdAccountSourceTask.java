@@ -73,18 +73,17 @@ public class MmdAccountSourceTask extends SpoolDirSourceTask<MmdAccountSourceCon
 
             log.trace("process() - Row on line {}", recordOffset());
 
-            Schema keySchema = SchemaBuilder.struct().name("sabatAccount")
+            Schema keySchema = SchemaBuilder.struct().name("sabat.account.key")
                     .field("iban", Schema.STRING_SCHEMA)
                     .build();
 
-            Schema valueSchema = SchemaBuilder.struct().name("sabatAccount")
+            Schema valueSchema = SchemaBuilder.struct().name("sabat.account.value")
                     .field("firstname", Schema.STRING_SCHEMA)
                     .field("lastname", Schema.STRING_SCHEMA)
                     .build();
 
             Struct keyStruct = new Struct(keySchema);
             Struct valueStruct = new Struct(valueSchema);
-
 
             try {
                 String[] split = row.split("\\|");
